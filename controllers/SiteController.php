@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+use app\forms\RoomCategorySearch;
 use yii\web\Controller;
+use Yii;
 
 class SiteController extends Controller
 {
@@ -13,6 +15,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new RoomCategorySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }
