@@ -1,5 +1,6 @@
-version: '2'
+version: "3.9"
 services:
+
   php:
     image: yiisoftware/yii2-php:7.4-apache
     volumes:
@@ -7,3 +8,22 @@ services:
       - ./:/app:delegated
     ports:
       - '8000:80'
+
+  db:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - /var/lib/mysql
+      - ./docker/mysql/config.cnf:/etc/mysql/conf.d/config.cnf
+    ports:
+      - "3306:3306"
+    environment:
+      TZ: "${TZ:-Europe/Moscow}"
+      MYSQL_ROOT_PASSWORD: yii2basic
+      MYSQL_DATABASE: yii2basic
+      MYSQL_USER: yii2basic
+      MYSQL_PASSWORD: yii2basic
+
+networks:
+  default:
+    name: test-booking
