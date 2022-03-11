@@ -8,7 +8,7 @@ class BookingRepository
 {
     public function save(Booking $booking): void
     {
-        if (!$booking->save()) {
+        if (!$booking->save(false)) {
             throw new \RuntimeException('Saving error.');
         }
     }

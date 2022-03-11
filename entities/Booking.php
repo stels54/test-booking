@@ -66,4 +66,17 @@ class Booking extends \yii\db\ActiveRecord
     {
         return $this->hasOne(RoomCategory::class, ['id' => 'room_category_id']);
     }
+
+    public static function create(int $roomCategoryId, string $dateFrom, string $dateTo, string $customerName, string $customerEmail) : Booking
+    {
+        $booking = new static();
+
+        $booking->room_category_id = $roomCategoryId;
+        $booking->date_from = $dateFrom;
+        $booking->date_to = $dateTo;
+        $booking->customer_name = $customerName;
+        $booking->customer_email = $customerEmail;
+
+        return $booking;
+    }
 }
