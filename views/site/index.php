@@ -22,7 +22,7 @@ $this->title = 'Booking';
             'id',
             'title',
             'rooms_count',
-            'bookingCount',
+            'bookedRoomsCount',
             [
                 'class' => ActionColumn::class,
                 'template' => '{new_booking}',

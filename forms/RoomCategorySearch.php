@@ -68,11 +68,11 @@ class RoomCategorySearch extends Model
                             OR 
                             (date_from >= '$this->date_from' AND date_to <= '$this->date_to')
                         )               
-                ) as bookingCount           
+                ) as bookedRoomsCount           
             FROM $table
         ) x");
 
-        $query->andWhere("rooms_count > bookingCount");
+        $query->andWhere("rooms_count > bookedRoomsCount");
 
         return $dataProvider;
     }

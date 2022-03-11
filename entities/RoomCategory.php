@@ -15,7 +15,7 @@ use Yii;
  */
 class RoomCategory extends \yii\db\ActiveRecord
 {
-    public $bookingCount;
+    public $bookedRoomsCount;
 
     /**
      * {@inheritdoc}
