@@ -30,9 +30,11 @@ class BookingController extends Controller
         ]);
     }
 
-    public function actionCreate($roomCategoryId)
+    public function actionCreate($roomCategoryId, $dateFrom = null, $dateTo = null)
     {
         $form = new BookingForm();
+        $form->date_from = $dateFrom;
+        $form->date_to = $dateTo;
 
         $roomCategory = RoomCategory::findOne($roomCategoryId);
 

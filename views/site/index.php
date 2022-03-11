@@ -27,10 +27,10 @@ $this->title = 'Booking';
                 'class' => ActionColumn::class,
                 'template' => '{new_booking}',
                 'buttons' => [
-                    'new_booking' => function ($url, RoomCategory $model) {
+                    'new_booking' => function ($url, RoomCategory $model) use ($searchModel) {
                         return Html::a(
                             Html::button('Book!', ['class' => 'btn btn-success']),
-                            Url::toRoute(['booking/create', 'roomCategoryId' => $model->id])
+                            Url::toRoute(['booking/create', 'roomCategoryId' => $model->id, 'dateFrom' => $searchModel->date_from, 'dateTo' => $searchModel->date_to])
                         );
                     }
                 ],
