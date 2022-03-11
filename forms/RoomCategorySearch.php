@@ -65,6 +65,8 @@ class RoomCategorySearch extends Model
                             (date_from <= '$this->date_from' AND date_to >= '$this->date_from')
                             OR
                             (date_from <= '$this->date_to' AND date_to >= '$this->date_to')
+                            OR 
+                            (date_from >= '$this->date_from' AND date_to <= '$this->date_to')
                         )               
                 ) as bookingCount           
             FROM $table

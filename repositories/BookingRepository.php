@@ -21,6 +21,11 @@ class BookingRepository
                     'and',
                     ['<=', 'date_from', $dateTo],
                     ['>=', 'date_to',  $dateTo]
+                ],
+                [
+                'and',
+                    ['>=', 'date_from', $dateFrom],
+                    ['<=', 'date_to',  $dateTo]
                 ]
             ])
             ->count();
