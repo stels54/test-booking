@@ -20,7 +20,7 @@ class RoomCategorySearch extends Model
     public function rules()
     {
         return [
-            [['date_from', 'date_to'], 'safe'],
+            [['date_from', 'date_to'], 'required'],
         ];
     }
 
@@ -33,6 +33,7 @@ class RoomCategorySearch extends Model
      */
     public function search($params)
     {
+        $table = RoomCategory::tableName();
         $query = RoomCategory::find();
 
         $dataProvider = new ActiveDataProvider([
@@ -45,6 +46,22 @@ class RoomCategorySearch extends Model
             $query->where('0=1');
             return $dataProvider;
         }
+
+        $query->from("(
+            SELECT $table.*, (
+                    SELECT COUNT(*) 
+                    FROM bookings
+                    WHERE room_category_id = $table.id AND 
+                        (
+                            (date_from <= '$this->date_from' AND date_to >= '$this->date_from')
+                            OR
+                            (date_from <= '$this->date_to' AND date_to >= '$this->date_to')
+                        )               
+                ) as bookingCount           
+            FROM $table
+        ) x");
+
+        $query->andWhere("rooms_count > bookingCount");
 
         return $dataProvider;
     }
