@@ -1,5 +1,7 @@
 <?php
 
+namespace app\services;
+
 use app\forms\BookingForm;
 use app\repositories\BookingRepository;
 use app\entities\Booking;
@@ -13,7 +15,7 @@ class BookingService
         $this->bookings = $bookings;
     }
 
-    public function create(int $categoryId, BookingForm $form)
+    public function create(int $categoryId, BookingForm $form) : void
     {
         $booking = Booking::create(
             $categoryId,
