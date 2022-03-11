@@ -2,6 +2,7 @@
 
 namespace app\forms;
 
+use app\helpers\DatetimeHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\entities\RoomCategory;
@@ -20,8 +21,16 @@ class RoomCategorySearch extends Model
     public function rules()
     {
         return [
-            [['date_from', 'date_to'], 'required'],
+            [['date_from', 'date_to'], 'safe'],
+            ['date_from', 'validateDates']
         ];
+    }
+
+    public function validateDates($attribute, $params)
+    {
+        if (!DatetimeHelper::validateDateInterval($this->date_from, $this->date_to)) {
+            $this->addError($attribute, 'Interval is not correct');
+        }
     }
 
     /**
@@ -31,7 +40,7 @@ class RoomCategorySearch extends Model
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params) : ActiveDataProvider
     {
         $table = RoomCategory::tableName();
         $query = RoomCategory::find();
@@ -42,7 +51,7 @@ class RoomCategorySearch extends Model
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if (!$this->validate() || empty($this->date_from) || empty($this->date_to)) {
             $query->where('0=1');
             return $dataProvider;
         }
