@@ -1,10 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use app\entities\Booking;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,12 +23,6 @@ $this->title = 'Bookings';
             'customer_name',
             'customer_email:email',
             'create_dt',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Booking $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
-            ],
         ],
     ]); ?>
 
